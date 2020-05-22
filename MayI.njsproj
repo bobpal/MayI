@@ -32,6 +32,7 @@
     <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
   <ItemGroup>
+    <Content Include="src\client\img\tabletop.png" />
     <Content Include="src\client\index.html">
       <SubType>Code</SubType>
     </Content>
@@ -43,12 +44,16 @@
     <Folder Include="src\client\" />
     <Folder Include="src\client\css\" />
     <Folder Include="src\client\img\" />
+    <Folder Include="src\client\scenes\" />
     <Folder Include="src\shared\" />
     <Folder Include="src\server\" />
     <Folder Include="src\shared\model\" />
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="src\client\game.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="src\client\scenes\title.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
     <TypeScriptCompile Include="src\server\server.ts">

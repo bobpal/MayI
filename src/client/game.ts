@@ -1,15 +1,12 @@
 import 'phaser';
-import io from 'socket.io-client';
+import { Title } from './scenes/title';
 
 const config = {
     type: Phaser.AUTO,
     width: 960,
     height: 640,
     parent: 'game',
-    scene: {
-        preload: {},
-        create: {},
-    }
+    scene: [Title]
 }
 
 export class Game extends Phaser.Game {
@@ -19,4 +16,4 @@ export class Game extends Phaser.Game {
 }
 
 const game = new Game(config);
-const socket = io("http://localhost:9001");
+// && copy \"src\\client\\img\" \"dist\\client\\img\\\"

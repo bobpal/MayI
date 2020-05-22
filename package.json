@@ -8,7 +8,7 @@
     "scripts": {
         "clean": "rimraf dist/*",
         "tsc": "tsc",
-        "assets": "copy \"src\\client\\index.html\" \"dist\\client\\\"",
+        "assets": "copy \"src\\client\\index.html\" \"dist\\client\\\" && mkdir \"dist\\client\\img\\\"",
         "parcel": "parcel build src/client/game.ts -d dist/client",
         "build": "npm-run-all clean tsc assets parcel",
         "start": "node dist/server/server.js",
