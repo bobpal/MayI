@@ -1,12 +1,18 @@
 import 'phaser';
-import { Title } from './scenes/title';
+import { TitleScene } from './scenes/titleScene';
+import { NewScene } from './scenes/newScene';
+import { PersonalizeScene } from './scenes/personalizeScene';
+import { RulesScene } from './scenes/rulesScene';
+import { CreditsScene } from './scenes/creditsScene';
+import { JoinScene } from './scenes/joinScene';
+import { LobbyScene } from './scenes/lobbyScene';
 
 const config = {
     type: Phaser.AUTO,
     width: 960,
     height: 640,
     parent: 'game',
-    scene: [Title]
+    scene: [TitleScene, NewScene, PersonalizeScene, RulesScene, CreditsScene, JoinScene, LobbyScene]
 }
 
 export class Game extends Phaser.Game {
@@ -16,4 +22,4 @@ export class Game extends Phaser.Game {
 }
 
 const game = new Game(config);
-// && copy \"src\\client\\img\" \"dist\\client\\img\\\"
+//deszone.net

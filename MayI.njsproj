@@ -32,7 +32,7 @@
     <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
   <ItemGroup>
-    <Content Include="src\client\img\tabletop.png" />
+    <Content Include="src\client\assets\cards.png" />
     <Content Include="src\client\index.html">
       <SubType>Code</SubType>
     </Content>
@@ -42,24 +42,36 @@
   <ItemGroup>
     <Folder Include="src\" />
     <Folder Include="src\client\" />
-    <Folder Include="src\client\css\" />
-    <Folder Include="src\client\img\" />
+    <Folder Include="src\client\assets\" />
     <Folder Include="src\client\scenes\" />
-    <Folder Include="src\shared\" />
     <Folder Include="src\server\" />
-    <Folder Include="src\shared\model\" />
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="src\client\game.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
-    <TypeScriptCompile Include="src\client\scenes\title.ts">
+    <TypeScriptCompile Include="src\client\scenes\creditsScene.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="src\client\scenes\joinScene.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="src\client\scenes\lobbyScene.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="src\client\scenes\newScene.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="src\client\scenes\personalizeScene.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="src\client\scenes\rulesScene.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="src\client\scenes\titleScene.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
     <TypeScriptCompile Include="src\server\server.ts">
-      <SubType>Code</SubType>
-    </TypeScriptCompile>
-    <TypeScriptCompile Include="src\shared\model\player.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
   </ItemGroup>

@@ -1,8 +1,6 @@
 import express from 'express';
 import path from 'path';
 
-import { Player } from '../shared/model/player';
-
 const app = express();
 app.set('port', process.env.PORT || 9001);
 
@@ -18,8 +16,7 @@ app.get('/', (req: any, res: any) => {
 io.on('connection', function (socket: any) {
     console.log('Client connected!');
     socket.on('msg', function (msg: any) {
-        let player = new Player(msg);
-        console.log(player.getName());
+        console.log(msg);
     })
 })
 
