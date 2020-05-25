@@ -9,6 +9,7 @@ import { LobbyScene } from './scenes/lobbyScene';
 
 const config = {
     type: Phaser.AUTO,
+    backgroundColor: '#ffffff',
     width: 960,
     height: 640,
     parent: 'game',
