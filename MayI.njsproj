@@ -59,7 +59,11 @@
     <Content Include="src\client\assets\cardbackpurple.png" />
     <Content Include="src\client\assets\cardbackred.png" />
     <Content Include="src\client\assets\cards.png" />
+    <Content Include="src\client\assets\friends.png" />
     <Content Include="src\client\assets\nameform.html" />
+    <Content Include="src\client\assets\players.png" />
+    <Content Include="src\client\assets\roomform.html" />
+    <Content Include="src\client\assets\timer.png" />
     <Content Include="src\client\index.html">
       <SubType>Code</SubType>
     </Content>

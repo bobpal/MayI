@@ -54,12 +54,12 @@ export class PersonalizeScene extends Phaser.Scene {
         //background
         self.add.image(480, 320, 'tableTop');
 
-        //Name
-        self.add.text(50, 50, 'Name').setFontSize(30).setFontFamily('Impact').setColor('#2335a8').setStroke('#42a7f5', 3);
+        //Name form
+        self.add.text(50, 50, 'Name :').setFontSize(30).setFontFamily('Arial').setColor('#ffffff').setStroke('#2335a8', 3);
         self.nameTextBox = self.add.dom(500, 65).createFromCache('nameform');
 
         //Avatar
-        self.add.text(50, 200, 'Avatar').setFontSize(30).setFontFamily('Impact').setColor('#2335a8').setStroke('#42a7f5', 3);
+        self.add.text(50, 200, 'Avatar :').setFontSize(30).setFontFamily('Arial').setColor('#ffffff').setStroke('#2335a8', 3);
         
         let avatarRect = self.add.graphics({ fillStyle: { color: 0xffffff }, lineStyle: { color: 0x000000, width: 4 } });
         avatarRect.fillRect(300, 140, 400, 150);
@@ -92,7 +92,7 @@ export class PersonalizeScene extends Phaser.Scene {
         avatarSelectRect.strokeRoundedRect(450, 145, 100, 140, 20);
         self.setVisibility(self.avatarArray, 125);
         
-        let avatarLeftArrow = self.add.text(230, 160, '<').setFontSize(100).setFontFamily('Impact').setColor('#2335a8').setStroke('#42a7f5', 3).setInteractive({ useHandCursor: true });
+        let avatarLeftArrow = self.add.text(230, 160, '<').setFontSize(100).setFontFamily('Impact').setColor('#2335a8').setStroke('#ffffff', 3).setInteractive({ useHandCursor: true });
         avatarLeftArrow.on('pointerover', function () { avatarLeftArrow.setColor('#42a7f5') });
         avatarLeftArrow.on('pointerout', function () { avatarLeftArrow.setColor('#2335a8') });
         avatarLeftArrow.on('pointerdown', function (event: any) {
@@ -105,7 +105,7 @@ export class PersonalizeScene extends Phaser.Scene {
             }
         }, self);
 
-        let avatarRightArrow = self.add.text(710, 160, '>').setFontSize(100).setFontFamily('Impact').setColor('#2335a8').setStroke('#42a7f5', 3).setInteractive({ useHandCursor: true });
+        let avatarRightArrow = self.add.text(710, 160, '>').setFontSize(100).setFontFamily('Impact').setColor('#2335a8').setStroke('#ffffff', 3).setInteractive({ useHandCursor: true });
         avatarRightArrow.on('pointerover', function () { avatarRightArrow.setColor('#42a7f5') });
         avatarRightArrow.on('pointerout', function () { avatarRightArrow.setColor('#2335a8') });
         avatarRightArrow.on('pointerdown', function (event: any) {
@@ -120,7 +120,7 @@ export class PersonalizeScene extends Phaser.Scene {
 
 
         //Card Back
-        self.add.text(50, 380, 'Card Back').setFontSize(30).setFontFamily('Impact').setColor('#2335a8').setStroke('#42a7f5', 3);
+        self.add.text(50, 380, 'Card Back :').setFontSize(30).setFontFamily('Arial').setColor('#ffffff').setStroke('#2335a8', 3);
 
         let backRect = self.add.graphics({ fillStyle: { color: 0xffffff }, lineStyle: { color: 0x000000, width: 4 } });
         backRect.fillRect(300, 330, 400, 150);
@@ -140,7 +140,7 @@ export class PersonalizeScene extends Phaser.Scene {
         backSelectRect.strokeRoundedRect(450, 335, 100, 140, 20);
         self.setVisibility(self.backArray, 125);
 
-        let backLeftArrow = self.add.text(230, 340, '<').setFontSize(100).setFontFamily('Impact').setColor('#2335a8').setStroke('#42a7f5', 3).setInteractive({ useHandCursor: true });
+        let backLeftArrow = self.add.text(230, 340, '<').setFontSize(100).setFontFamily('Impact').setColor('#2335a8').setStroke('#ffffff', 3).setInteractive({ useHandCursor: true });
         backLeftArrow.on('pointerover', function () { backLeftArrow.setColor('#42a7f5') });
         backLeftArrow.on('pointerout', function () { backLeftArrow.setColor('#2335a8') });
         backLeftArrow.on('pointerdown', function (event: any) {
@@ -153,7 +153,7 @@ export class PersonalizeScene extends Phaser.Scene {
             }
         }, self);
 
-        let backRightArrow = self.add.text(710, 340, '>').setFontSize(100).setFontFamily('Impact').setColor('#2335a8').setStroke('#42a7f5', 3).setInteractive({ useHandCursor: true });
+        let backRightArrow = self.add.text(710, 340, '>').setFontSize(100).setFontFamily('Impact').setColor('#2335a8').setStroke('#ffffff', 3).setInteractive({ useHandCursor: true });
         backRightArrow.on('pointerover', function () { backRightArrow.setColor('#42a7f5') });
         backRightArrow.on('pointerout', function () { backRightArrow.setColor('#2335a8') });
         backRightArrow.on('pointerdown', function (event: any) {
@@ -168,7 +168,7 @@ export class PersonalizeScene extends Phaser.Scene {
 
 
         //Next Button
-        let nextButton = self.add.text(425, 500, 'Next').setFontSize(50).setFontFamily('Impact').setColor('#2335a8').setStroke('#42a7f5', 3).setInteractive({ useHandCursor: true });
+        let nextButton = self.add.text(430, 500, 'Next').setFontSize(50).setFontFamily('Impact').setColor('#2335a8').setStroke('#ffffff', 3).setInteractive({ useHandCursor: true });
         nextButton.on('pointerover', function () { nextButton.setColor('#42a7f5') });
         nextButton.on('pointerout', function () { nextButton.setColor('#2335a8') });
         nextButton.on('pointerdown', function (event: any) {
@@ -212,7 +212,7 @@ export class PersonalizeScene extends Phaser.Scene {
         }, self);
         
         //Back Button
-        let backButton = self.add.text(445, 575, 'Back').setFontSize(30).setFontFamily('Impact').setColor('#2335a8').setStroke('#42a7f5', 3).setInteractive({ useHandCursor: true });
+        let backButton = self.add.text(445, 575, 'Back').setFontSize(30).setFontFamily('Impact').setColor('#2335a8').setStroke('#ffffff', 3).setInteractive({ useHandCursor: true });
         backButton.on('pointerover', function () { backButton.setColor('#42a7f5') });
         backButton.on('pointerout', function () { backButton.setColor('#2335a8') });
         backButton.on('pointerdown', function (event: any) { self.scene.start('TitleScene'); }, self);

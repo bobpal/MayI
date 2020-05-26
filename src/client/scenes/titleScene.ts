@@ -31,10 +31,10 @@ export class TitleScene extends Phaser.Scene {
 
 
         //buttons
-        let newButton = this.add.text(150, 400, 'New Game').setFontSize(50).setFontFamily('Impact').setColor('#2335a8').setStroke('#42a7f5', 3).setInteractive({ useHandCursor: true });
-        let joinButton = this.add.text(600, 400, 'Join Game').setFontSize(50).setFontFamily('Impact').setColor('#2335a8').setStroke('#42a7f5', 3).setInteractive({ useHandCursor: true });
-        let rulesButton = this.add.text(448, 400, 'Rules').setFontSize(25).setFontFamily('Impact').setColor('#2335a8').setStroke('#42a7f5', 3).setInteractive({ useHandCursor: true });
-        let creditsButton = this.add.text(440, 450, 'Credits').setFontSize(25).setFontFamily('Impact').setColor('#2335a8').setStroke('#42a7f5', 3).setInteractive({ useHandCursor: true });
+        let newButton = this.add.text(150, 400, 'New Game').setFontSize(50).setFontFamily('Impact').setColor('#2335a8').setStroke('#ffffff', 3).setInteractive({ useHandCursor: true });
+        let joinButton = this.add.text(600, 400, 'Join Game').setFontSize(50).setFontFamily('Impact').setColor('#2335a8').setStroke('#ffffff', 3).setInteractive({ useHandCursor: true });
+        let rulesButton = this.add.text(448, 400, 'Rules').setFontSize(25).setFontFamily('Impact').setColor('#2335a8').setStroke('#ffffff', 3).setInteractive({ useHandCursor: true });
+        let creditsButton = this.add.text(440, 450, 'Credits').setFontSize(25).setFontFamily('Impact').setColor('#2335a8').setStroke('#ffffff', 3).setInteractive({ useHandCursor: true });
 
 
         newButton.on('pointerover', function () { newButton.setColor('#42a7f5') });
