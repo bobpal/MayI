@@ -1,10 +1,13 @@
 import { GameObjects } from "phaser";
+import { Player } from "../../shared/player";
 
 export class PersonalizeScene extends Phaser.Scene {
     newGame: boolean;
     nameTextBox: any;
     nameTooLong: GameObjects.Text;
     noName: GameObjects.Text;
+    avatarArray: GameObjects.Image[];
+    backArray: GameObjects.Image[];
 
     constructor() {
         super('PersonalizeScene');
@@ -15,33 +18,34 @@ export class PersonalizeScene extends Phaser.Scene {
     }
 
     preload() {
-        this.load.image('avatar1', './assets/avatar 1.png');
-        this.load.image('avatar2', './assets/avatar 2.png');
-        this.load.image('avatar3', './assets/avatar 3.png');
-        this.load.image('avatar4', './assets/avatar 4.png');
-        this.load.image('avatar5', './assets/avatar 5.png');
-        this.load.image('avatar6', './assets/avatar 6.png');
-        this.load.image('avatar7', './assets/avatar 7.png');
-        this.load.image('avatar8', './assets/avatar 8.png');
-        this.load.image('avatar9', './assets/avatar 9.png');
-        this.load.image('avatar10', './assets/avatar 10.png');
-        this.load.image('avatar11', './assets/avatar 11.png');
-        this.load.image('avatar12', './assets/avatar 12.png');
-        this.load.image('avatar13', './assets/avatar 13.png');
-        this.load.image('avatar14', './assets/avatar 14.png');
-        this.load.image('avatar15', './assets/avatar 15.png');
-        this.load.image('avatar16', './assets/avatar 16.png');
-        this.load.image('avatar17', './assets/avatar 17.png');
-        this.load.image('avatar18', './assets/avatar 18.png');
-        this.load.image('avatar19', './assets/avatar 19.png');
-        this.load.image('avatar20', './assets/avatar 20.png');
+        this.load.image('avatar1', './assets/avatar1.png');
+        this.load.image('avatar2', './assets/avatar2.png');
+        this.load.image('avatar3', './assets/avatar3.png');
+        this.load.image('avatar4', './assets/avatar4.png');
+        this.load.image('avatar5', './assets/avatar5.png');
+        this.load.image('avatar6', './assets/avatar6.png');
+        this.load.image('avatar7', './assets/avatar7.png');
+        this.load.image('avatar8', './assets/avatar8.png');
+        this.load.image('avatar9', './assets/avatar9.png');
+        this.load.image('avatar10', './assets/avatar10.png');
+        this.load.image('avatar11', './assets/avatar11.png');
+        this.load.image('avatar12', './assets/avatar12.png');
+        this.load.image('avatar13', './assets/avatar13.png');
+        this.load.image('avatar14', './assets/avatar14.png');
+        this.load.image('avatar15', './assets/avatar15.png');
+        this.load.image('avatar16', './assets/avatar16.png');
+        this.load.image('avatar17', './assets/avatar17.png');
+        this.load.image('avatar18', './assets/avatar18.png');
+        this.load.image('avatar19', './assets/avatar19.png');
+        this.load.image('avatar20', './assets/avatar20.png');
 
-        this.load.image('cardbackblack', './assets/card back black.png');
-        this.load.image('cardbackblue', './assets/card back blue.png');
-        this.load.image('cardbackgreen', './assets/card back green.png');
-        this.load.image('cardbackorange', './assets/card back orange.png');
-        this.load.image('cardbackpurple', './assets/card back purple.png');
-        this.load.image('cardbackred', './assets/card back red.png');
+        
+        this.load.image('cardbackblue', './assets/cardbackblue.png');
+        this.load.image('cardbackpurple', './assets/cardbackpurple.png');
+        this.load.image('cardbackblack', './assets/cardbackblack.png');
+        this.load.image('cardbackred', './assets/cardbackred.png');
+        this.load.image('cardbackorange', './assets/cardbackorange.png');
+        this.load.image('cardbackgreen', './assets/cardbackgreen.png');
         this.load.html('nameform', './assets/nameform.html');
     }
 
@@ -58,27 +62,109 @@ export class PersonalizeScene extends Phaser.Scene {
         self.add.text(50, 200, 'Avatar').setFontSize(30).setFontFamily('Impact').setColor('#2335a8').setStroke('#42a7f5', 3);
         
         let avatarRect = self.add.graphics({ fillStyle: { color: 0xffffff }, lineStyle: { color: 0x000000, width: 4 } });
-        avatarRect.fillRect(200, 140, 600, 150);
-        avatarRect.strokeRect(200, 140, 600, 150);
+        avatarRect.fillRect(300, 140, 400, 150);
+        avatarRect.strokeRect(300, 140, 400, 150);
 
-        let cont = self.add.container(500, 213);
-        let bob = self.add.image(0, 0, 'avatar1').setScale(.5, .5);
-        cont.add([bob]);
+        let avatarCont = self.add.container(500, 213);
+        self.avatarArray = [];
+        self.avatarArray.push(self.add.image(0, 0, 'avatar1'));
+        self.avatarArray.push(self.add.image(125, 0, 'avatar2'));
+        self.avatarArray.push(self.add.image(250, 0, 'avatar3'));
+        self.avatarArray.push(self.add.image(375, 0, 'avatar4'));
+        self.avatarArray.push(self.add.image(500, 0, 'avatar5'));
+        self.avatarArray.push(self.add.image(625, 0, 'avatar6'));
+        self.avatarArray.push(self.add.image(750, 0, 'avatar7'));
+        self.avatarArray.push(self.add.image(875, 0, 'avatar8'));
+        self.avatarArray.push(self.add.image(1000, 0, 'avatar9'));
+        self.avatarArray.push(self.add.image(1125, 0, 'avatar10'));
+        self.avatarArray.push(self.add.image(1250, 0, 'avatar11'));
+        self.avatarArray.push(self.add.image(1375, 0, 'avatar12'));
+        self.avatarArray.push(self.add.image(1500, 0, 'avatar13'));
+        self.avatarArray.push(self.add.image(1625, 0, 'avatar14'));
+        self.avatarArray.push(self.add.image(1750, 0, 'avatar15'));
+        self.avatarArray.push(self.add.image(1875, 0, 'avatar16'));
+        self.avatarArray.push(self.add.image(2000, 0, 'avatar17'));
+        self.avatarArray.push(self.add.image(2125, 0, 'avatar18'));
+        self.avatarArray.push(self.add.image(2250, 0, 'avatar19'));
+        self.avatarArray.push(self.add.image(2375, 0, 'avatar20'));
+        avatarCont.add(self.avatarArray);
         let avatarSelectRect = self.add.graphics({ lineStyle: { color: 0x42a7f5, width: 4 } });
         avatarSelectRect.strokeRoundedRect(450, 145, 100, 140, 20);
-
-        let avatarLeftArrow = self.add.text(135, 160, '<').setFontSize(100).setFontFamily('Impact').setColor('#000000').setInteractive({ useHandCursor: true });
+        self.setVisibility(self.avatarArray, 125);
+        
+        let avatarLeftArrow = self.add.text(230, 160, '<').setFontSize(100).setFontFamily('Impact').setColor('#2335a8').setStroke('#42a7f5', 3).setInteractive({ useHandCursor: true });
+        avatarLeftArrow.on('pointerover', function () { avatarLeftArrow.setColor('#42a7f5') });
+        avatarLeftArrow.on('pointerout', function () { avatarLeftArrow.setColor('#2335a8') });
         avatarLeftArrow.on('pointerdown', function (event: any) {
-            //move avatars right
+            if (self.avatarArray[0].x !== 0) {
+                //move avatars right
+                for (let img of self.avatarArray) {
+                    img.setX(img.x + 125);
+                }
+                self.setVisibility(self.avatarArray, 125);
+            }
+        }, self);
 
+        let avatarRightArrow = self.add.text(710, 160, '>').setFontSize(100).setFontFamily('Impact').setColor('#2335a8').setStroke('#42a7f5', 3).setInteractive({ useHandCursor: true });
+        avatarRightArrow.on('pointerover', function () { avatarRightArrow.setColor('#42a7f5') });
+        avatarRightArrow.on('pointerout', function () { avatarRightArrow.setColor('#2335a8') });
+        avatarRightArrow.on('pointerdown', function (event: any) {
+            if (self.avatarArray[self.avatarArray.length - 1].x !== 0) {
+                //move avatars left
+                for (let img of self.avatarArray) {
+                    img.setX(img.x - 125);
+                }
+                self.setVisibility(self.avatarArray, 125);
+            }
         }, self);
 
 
-
         //Card Back
-        self.add.text(50, 400, 'Card Back').setFontSize(30).setFontFamily('Impact').setColor('#2335a8').setStroke('#42a7f5', 3);
+        self.add.text(50, 380, 'Card Back').setFontSize(30).setFontFamily('Impact').setColor('#2335a8').setStroke('#42a7f5', 3);
 
+        let backRect = self.add.graphics({ fillStyle: { color: 0xffffff }, lineStyle: { color: 0x000000, width: 4 } });
+        backRect.fillRect(300, 330, 400, 150);
+        backRect.strokeRect(300, 330, 400, 150);
 
+        let cont = self.add.container(500, 405);
+        self.backArray = [];
+        self.backArray.push(self.add.image(0, 0, 'cardbackblue').setScale(.3, .3));
+        self.backArray.push(self.add.image(125, 0, 'cardbackpurple').setScale(.3, .3));
+        self.backArray.push(self.add.image(250, 0, 'cardbackblack').setScale(.3, .3));
+        self.backArray.push(self.add.image(375, 0, 'cardbackred').setScale(.3, .3));
+        self.backArray.push(self.add.image(500, 0, 'cardbackorange').setScale(.3, .3));
+        self.backArray.push(self.add.image(625, 0, 'cardbackgreen').setScale(.3, .3));
+
+        cont.add(self.backArray);
+        let backSelectRect = self.add.graphics({ lineStyle: { color: 0x42a7f5, width: 4 } });
+        backSelectRect.strokeRoundedRect(450, 335, 100, 140, 20);
+        self.setVisibility(self.backArray, 125);
+
+        let backLeftArrow = self.add.text(230, 340, '<').setFontSize(100).setFontFamily('Impact').setColor('#2335a8').setStroke('#42a7f5', 3).setInteractive({ useHandCursor: true });
+        backLeftArrow.on('pointerover', function () { backLeftArrow.setColor('#42a7f5') });
+        backLeftArrow.on('pointerout', function () { backLeftArrow.setColor('#2335a8') });
+        backLeftArrow.on('pointerdown', function (event: any) {
+            if (self.backArray[0].x !== 0) {
+                //move backs right
+                for (let img of self.backArray) {
+                    img.setX(img.x + 125);
+                }
+                self.setVisibility(self.backArray, 125);
+            }
+        }, self);
+
+        let backRightArrow = self.add.text(710, 340, '>').setFontSize(100).setFontFamily('Impact').setColor('#2335a8').setStroke('#42a7f5', 3).setInteractive({ useHandCursor: true });
+        backRightArrow.on('pointerover', function () { backRightArrow.setColor('#42a7f5') });
+        backRightArrow.on('pointerout', function () { backRightArrow.setColor('#2335a8') });
+        backRightArrow.on('pointerdown', function (event: any) {
+            if (self.backArray[self.backArray.length - 1].x !== 0) {
+                //move backs left
+                for (let img of self.backArray) {
+                    img.setX(img.x - 125);
+                }
+                self.setVisibility(self.backArray, 125);
+            }
+        }, self);
 
 
         //Next Button
@@ -96,11 +182,23 @@ export class PersonalizeScene extends Phaser.Scene {
             let nameInput = self.nameTextBox.getChildByName('nameField');
             if (nameInput.value.length !== 0) {
                 if (nameInput.value.length < 11) {
-
-
+                    let ava = self.avatarArray.find(a => a.x === 0);
+                    let cBack = self.backArray.find(a => a.x === 0);
 
                     //create new Player
+                    let player: Player = {
+                        name: nameInput.value,
+                        avatar: ava.texture.key,
+                        cardBack: cBack.texture.key
+                    };
+                    
                     //go to next scene (new or join)
+                    if (self.newGame) {
+                        self.scene.start('NewScene', { player: player });
+                    }
+                    else {
+                        self.scene.start('JoinScene', { player: player });
+                    }
                 }
                 else {
                     self.nameTooLong = self.add.text(375, 100, 'Name must be 10 characters or less').setFontSize(15).setFontFamily('Arial').setColor('#ff0000');
@@ -120,6 +218,15 @@ export class PersonalizeScene extends Phaser.Scene {
         backButton.on('pointerdown', function (event: any) { self.scene.start('TitleScene'); }, self);
     }
 
-
+    setVisibility(images: GameObjects.Image[], stepWidth: number) {
+        for (let i of images) {
+            if (i.x === 0 || Math.abs(i.x) === stepWidth) {
+                i.setVisible(true);
+            }
+            else {
+                i.setVisible(false);
+            }
+        }
+    }
 
 }
