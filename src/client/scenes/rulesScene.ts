@@ -73,9 +73,9 @@ export class RulesScene extends Phaser.Scene {
 
 
         //Back Button
-        let backButton = this.add.text(445, 575, 'Back').setFontSize(30).setFontFamily('Impact').setColor('#42a7f5').setShadow(1, 3, '#333333').setInteractive({ useHandCursor: true });
-        backButton.on('pointerover', function () { backButton.setColor('#2335a8') });
-        backButton.on('pointerout', function () { backButton.setColor('#42a7f5') });
+        let backButton = this.add.text(445, 575, 'Back').setFontSize(30).setFontFamily('Impact').setColor('#2335a8').setStroke('#42a7f5', 3).setInteractive({ useHandCursor: true });
+        backButton.on('pointerover', function () { backButton.setColor('#42a7f5') });
+        backButton.on('pointerout', function () { backButton.setColor('#2335a8') });
         backButton.on('pointerdown', function (event: any) { this.scene.start('TitleScene'); }, this);
     }
 

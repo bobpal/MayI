@@ -12,15 +12,15 @@ export class NewScene extends Phaser.Scene {
         this.add.image(480, 320, 'tableTop');
 
         //Start Button
-        let startButton = this.add.text(425, 500, 'Start').setFontSize(50).setFontFamily('Impact').setColor('#42a7f5').setShadow(2, 5, '#333333').setInteractive({ useHandCursor: true });
-        startButton.on('pointerover', function () { startButton.setColor('#2335a8') });
-        startButton.on('pointerout', function () { startButton.setColor('#42a7f5') });
+        let startButton = this.add.text(425, 500, 'Start').setFontSize(50).setFontFamily('Impact').setColor('#2335a8').setStroke('#42a7f5', 3).setInteractive({ useHandCursor: true });
+        startButton.on('pointerover', function () { startButton.setColor('#42a7f5') });
+        startButton.on('pointerout', function () { startButton.setColor('#2335a8') });
         //startButton.on('pointerdown', function (event: any) { this.scene.start('GameScene'); }, this);
 
         //Back Button
-        let backButton = this.add.text(445, 575, 'Back').setFontSize(30).setFontFamily('Impact').setColor('#42a7f5').setShadow(1, 3, '#333333').setInteractive({ useHandCursor: true });
-        backButton.on('pointerover', function () { backButton.setColor('#2335a8') });
-        backButton.on('pointerout', function () { backButton.setColor('#42a7f5') });
+        let backButton = this.add.text(445, 575, 'Back').setFontSize(30).setFontFamily('Impact').setColor('#2335a8').setStroke('#42a7f5', 3).setInteractive({ useHandCursor: true });
+        backButton.on('pointerover', function () { backButton.setColor('#42a7f5') });
+        backButton.on('pointerout', function () { backButton.setColor('#2335a8') });
         backButton.on('pointerdown', function (event: any) { this.scene.start('TitleScene'); }, this);
 
         //Number of Players
