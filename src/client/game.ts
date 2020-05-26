@@ -13,6 +13,7 @@ const config = {
     width: 960,
     height: 640,
     parent: 'game',
+    dom: { createContainer: true },
     scene: [TitleScene, NewScene, PersonalizeScene, RulesScene, CreditsScene, JoinScene, LobbyScene]
 }
 
@@ -23,4 +24,4 @@ export class Game extends Phaser.Game {
 }
 
 const game = new Game(config);
-//deszone.net
+

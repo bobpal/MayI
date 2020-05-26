@@ -59,6 +59,7 @@
     <Content Include="src\client\assets\card back purple.png" />
     <Content Include="src\client\assets\card back red.png" />
     <Content Include="src\client\assets\cards.png" />
+    <Content Include="src\client\assets\nameform.html" />
     <Content Include="src\client\index.html">
       <SubType>Code</SubType>
     </Content>
@@ -70,6 +71,7 @@
     <Folder Include="src\client\" />
     <Folder Include="src\client\assets\" />
     <Folder Include="src\client\scenes\" />
+    <Folder Include="src\shared\" />
     <Folder Include="src\server\" />
   </ItemGroup>
   <ItemGroup>
@@ -98,6 +100,9 @@
       <SubType>Code</SubType>
     </TypeScriptCompile>
     <TypeScriptCompile Include="src\server\server.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="src\shared\player.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
   </ItemGroup>

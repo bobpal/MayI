@@ -1,5 +1,10 @@
+import { GameObjects } from "phaser";
+
 export class PersonalizeScene extends Phaser.Scene {
     newGame: boolean;
+    nameTextBox: any;
+    nameTooLong: GameObjects.Text;
+    noName: GameObjects.Text;
 
     constructor() {
         super('PersonalizeScene');
@@ -37,30 +42,67 @@ export class PersonalizeScene extends Phaser.Scene {
         this.load.image('cardbackorange', './assets/card back orange.png');
         this.load.image('cardbackpurple', './assets/card back purple.png');
         this.load.image('cardbackred', './assets/card back red.png');
+        this.load.html('nameform', './assets/nameform.html');
     }
 
     create() {
+        let self = this;
         //background
-        this.add.image(480, 320, 'tableTop');
+        self.add.image(480, 320, 'tableTop');
 
         //Name
-        this.add.text(50, 50, 'Name').setFontSize(30).setFontFamily('Impact').setColor('#42a7f5');
-        //add text box with a max of 20 characters
+        self.add.text(50, 50, 'Name').setFontSize(30).setFontFamily('Impact').setColor('#42a7f5');
+        self.nameTextBox = self.add.dom(500, 65).createFromCache('nameform');
+        
 
 
         //Avatar
-        this.add.text(50, 200, 'Avatar').setFontSize(30).setFontFamily('Impact').setColor('#42a7f5');
+        self.add.text(50, 200, 'Avatar').setFontSize(30).setFontFamily('Impact').setColor('#42a7f5');
 
 
         //Card Back
-        this.add.text(50, 400, 'Card Back').setFontSize(30).setFontFamily('Impact').setColor('#42a7f5');
+        self.add.text(50, 400, 'Card Back').setFontSize(30).setFontFamily('Impact').setColor('#42a7f5');
 
+
+
+
+        //Next Button
+        let nextButton = self.add.text(425, 500, 'Next').setFontSize(50).setFontFamily('Impact').setColor('#42a7f5').setShadow(2, 5, '#333333').setInteractive({ useHandCursor: true });
+        nextButton.on('pointerover', function () { nextButton.setColor('#2335a8') });
+        nextButton.on('pointerout', function () { nextButton.setColor('#42a7f5') });
+        nextButton.on('pointerdown', function (event: any) {
+            if (self.nameTooLong != null) {
+                self.nameTooLong.setVisible(false);
+            }
+            if (self.noName != null) {
+                self.noName.setVisible(false);
+            }
+
+            let nameInput = self.nameTextBox.getChildByName('nameField');
+            if (nameInput.value.length !== 0) {
+                if (nameInput.value.length < 11) {
+
+
+
+                    //create new Player
+                    //go to next scene (new or join)
+                }
+                else {
+                    self.nameTooLong = self.add.text(375, 100, 'Name must be 10 characters or less').setFontSize(15).setFontFamily('Arial').setColor('#ff0000');
+                    self.nameTooLong.setVisible(true);
+                }
+            }
+            else {
+                self.noName = self.add.text(400, 100, 'Please enter a name').setFontSize(15).setFontFamily('Arial').setColor('#ff0000');
+                self.noName.setVisible(true);
+            }
+        }, self);
         
         //Back Button
-        let backButton = this.add.text(445, 575, 'Back').setFontSize(30).setFontFamily('Impact').setColor('#42a7f5').setShadow(1, 3, '#333333').setInteractive({ useHandCursor: true });
+        let backButton = self.add.text(445, 575, 'Back').setFontSize(30).setFontFamily('Impact').setColor('#42a7f5').setShadow(1, 3, '#333333').setInteractive({ useHandCursor: true });
         backButton.on('pointerover', function () { backButton.setColor('#2335a8') });
         backButton.on('pointerout', function () { backButton.setColor('#42a7f5') });
-        backButton.on('pointerdown', function (event: any) { this.scene.start('TitleScene'); }, this);
+        backButton.on('pointerdown', function (event: any) { self.scene.start('TitleScene'); }, self);
     }
 
 
