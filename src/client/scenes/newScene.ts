@@ -1,14 +1,23 @@
 import { GameObjects } from "phaser";
+import io from 'socket.io-client';
+import { RoomInfo } from "../../shared/room";
+import { PlayerInfo } from "../../shared/player";
+
 
 export class NewScene extends Phaser.Scene {
     playerCount: GameObjects.Text;
     friendCircle: GameObjects.Arc;
     timerCircle: GameObjects.Arc;
-    friends: boolean;
-    timer: boolean;
+    withFriends: boolean;
+    hasTimer: boolean;
+    player: PlayerInfo;
 
     constructor() {
         super('NewScene');
+    }
+
+    init(data: any) {
+        this.player = data.player;
     }
 
     preload() {
@@ -54,7 +63,7 @@ export class NewScene extends Phaser.Scene {
         }, self);
 
         //With Friends?
-        self.friends = true;
+        self.withFriends = true;
         self.add.text(420, 350, ['Play with', 'Friends?']).setFontSize(30).setFontFamily('Arial').setColor('#ffffff').setStroke('#2335a8', 3).setAlign('center');
         self.add.image(495, 160, 'friends').setScale(.5, .5);
 
@@ -69,22 +78,22 @@ export class NewScene extends Phaser.Scene {
         self.friendCircle = self.add.circle(495, 295, 14, 0xffffff).setStrokeStyle(2, 0x000000).setInteractive({ useHandCursor: true });
 
         self.friendCircle.on('pointerdown', function (event: any) {
-            if (self.friends) {
+            if (self.withFriends) {
                 self.friendCircle.setX(465);
-                self.friends = false;
+                self.withFriends = false;
                 friendGrayBg.setVisible(true);
                 friendColoredBg.setVisible(false);
             }
             else {
                 self.friendCircle.setX(495);
-                self.friends = true;
+                self.withFriends = true;
                 friendGrayBg.setVisible(false);
                 friendColoredBg.setVisible(true);
             }
         }, self);
 
         //Timer
-        self.timer = false;
+        self.hasTimer = false;
         self.add.text(750, 350, 'Use Timer?').setFontSize(30).setFontFamily('Arial').setColor('#ffffff').setStroke('#2335a8', 3);
         self.add.image(825, 160, 'timer').setScale(.5, .5);
 
@@ -99,15 +108,15 @@ export class NewScene extends Phaser.Scene {
         self.timerCircle = self.add.circle(810, 295, 14, 0xffffff).setStrokeStyle(2, 0x000000).setInteractive({ useHandCursor: true });
 
         self.timerCircle.on('pointerdown', function (event: any) {
-            if (self.timer) {
+            if (self.hasTimer) {
                 self.timerCircle.setX(810);
-                self.timer = false;
+                self.hasTimer = false;
                 timerGrayBg.setVisible(true);
                 timerColoredBg.setVisible(false);
             }
             else {
                 self.timerCircle.setX(840);
-                self.timer = true;
+                self.hasTimer = true;
                 timerGrayBg.setVisible(false);
                 timerColoredBg.setVisible(true);
             }
@@ -119,14 +128,23 @@ export class NewScene extends Phaser.Scene {
         startButton.on('pointerover', function () { startButton.setColor('#42a7f5') });
         startButton.on('pointerout', function () { startButton.setColor('#2335a8') });
         startButton.on('pointerdown', function (event: any) {
+            let roomObj = new RoomInfo();
+            roomObj.hasTimer = self.hasTimer;
+            roomObj.playerCount = +self.playerCount.text;
+            roomObj.withFriends = self.withFriends;
+            roomObj.playerList.push();
 
+            let socket = io.connect('http://localhost:9001');
+            socket.emit('roomObj', roomObj);
+
+            self.scene.start('LobbyScene');
         }, self);
 
         //Back Button
         let backButton = self.add.text(445, 575, 'Back').setFontSize(30).setFontFamily('Impact').setColor('#2335a8').setStroke('#ffffff', 3).setInteractive({ useHandCursor: true });
         backButton.on('pointerover', function () { backButton.setColor('#42a7f5') });
         backButton.on('pointerout', function () { backButton.setColor('#2335a8') });
-        backButton.on('pointerdown', function (event: any) { self.scene.start('PersonalizeScene', { newGame: true }); }, self);
+        backButton.on('pointerdown', function (event: any) { self.scene.start('JoinScene', { player: self.player }); }, self);
     }
 
 

@@ -1,8 +1,7 @@
 import { GameObjects } from "phaser";
-import { Player } from "../../shared/player";
+import { PlayerInfo } from "../../shared/player";
 
 export class PersonalizeScene extends Phaser.Scene {
-    newGame: boolean;
     nameTextBox: any;
     nameTooLong: GameObjects.Text;
     noName: GameObjects.Text;
@@ -11,10 +10,6 @@ export class PersonalizeScene extends Phaser.Scene {
 
     constructor() {
         super('PersonalizeScene');
-    }
-
-    init(data: any) {
-        this.newGame = data.newGame;
     }
 
     preload() {
@@ -60,10 +55,8 @@ export class PersonalizeScene extends Phaser.Scene {
 
         //Avatar
         self.add.text(50, 200, 'Avatar :').setFontSize(30).setFontFamily('Arial').setColor('#ffffff').setStroke('#2335a8', 3);
-        
-        let avatarRect = self.add.graphics({ fillStyle: { color: 0xffffff }, lineStyle: { color: 0x000000, width: 4 } });
-        avatarRect.fillRect(300, 140, 400, 150);
-        avatarRect.strokeRect(300, 140, 400, 150);
+
+        self.add.rectangle(500, 215, 400, 150, 0xffffff).setStrokeStyle(4, 0x000000);
 
         let avatarCont = self.add.container(500, 213);
         self.avatarArray = [];
@@ -122,9 +115,7 @@ export class PersonalizeScene extends Phaser.Scene {
         //Card Back
         self.add.text(50, 380, 'Card Back :').setFontSize(30).setFontFamily('Arial').setColor('#ffffff').setStroke('#2335a8', 3);
 
-        let backRect = self.add.graphics({ fillStyle: { color: 0xffffff }, lineStyle: { color: 0x000000, width: 4 } });
-        backRect.fillRect(300, 330, 400, 150);
-        backRect.strokeRect(300, 330, 400, 150);
+        self.add.rectangle(500, 405, 400, 150, 0xffffff).setStrokeStyle(4, 0x000000);
 
         let cont = self.add.container(500, 405);
         self.backArray = [];
@@ -186,19 +177,9 @@ export class PersonalizeScene extends Phaser.Scene {
                     let cBack = self.backArray.find(a => a.x === 0);
 
                     //create new Player
-                    let player: Player = {
-                        name: nameInput.value,
-                        avatar: ava.texture.key,
-                        cardBack: cBack.texture.key
-                    };
-                    
-                    //go to next scene (new or join)
-                    if (self.newGame) {
-                        self.scene.start('NewScene', { player: player });
-                    }
-                    else {
-                        self.scene.start('JoinScene', { player: player });
-                    }
+                    let player = new PlayerInfo(nameInput.value, ava.texture.key, cBack.texture.key);
+
+                    self.scene.start('JoinScene', { player: player });
                 }
                 else {
                     self.nameTooLong = self.add.text(375, 100, 'Name must be 10 characters or less').setFontSize(15).setFontFamily('Arial').setColor('#ff0000');
