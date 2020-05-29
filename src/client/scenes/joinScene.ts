@@ -22,6 +22,9 @@ export class JoinScene extends Phaser.Scene {
 
     create() {
         let self = this;
+
+
+
         self.lobby = [];
         //background
         self.add.image(480, 320, 'tableTop');
@@ -36,67 +39,9 @@ export class JoinScene extends Phaser.Scene {
         //Existing Games Container
         self.add.rectangle(215, 290, 350, 350, 0xffffff).setStrokeStyle(4, 0x000000);
 
-        //TODO GET ROOMS FROM SERVER
-        //testing/////////////////////////////////////////////////////////////////
+        
         let roomsFromServer: RoomInfo[] = [];
-        //let player = new PlayerInfo('player', 'avatar1', 'cardbackred');
-
-        //let room1 = new RoomInfo();
-        //room1.roomID = '1';
-        //room1.playerCount = 8;
-        //room1.withFriends = false;
-        //room1.hasTimer = true;
-        //room1.playerList = [player];
-        //roomsFromServer.push(room1);
-
-        //let room2 = new RoomInfo();
-        //room2.roomID = '2';
-        //room2.playerCount = 2;
-        //room2.withFriends = false;
-        //room2.hasTimer = false;
-        //room2.playerList = [player];
-        //roomsFromServer.push(room2);
-
-        //let room3 = new RoomInfo();
-        //room3.roomID = '3';
-        //room3.playerCount = 3;
-        //room3.withFriends = false;
-        //room3.hasTimer = true;
-        //room3.playerList = [player];
-        //roomsFromServer.push(room3);
-
-        //let room4 = new RoomInfo();
-        //room4.roomID = '4';
-        //room4.playerCount = 4;
-        //room4.withFriends = false;
-        //room4.hasTimer = false;
-        //room4.playerList = [player];
-        //roomsFromServer.push(room4);
-
-        //let room5 = new RoomInfo();
-        //room5.roomID = '5';
-        //room5.playerCount = 5;
-        //room5.withFriends = false;
-        //room5.hasTimer = true;
-        //room5.playerList = [player];
-        //roomsFromServer.push(room5);
-
-        //let room6 = new RoomInfo();
-        //room6.roomID = '6';
-        //room6.playerCount = 6;
-        //room6.withFriends = false;
-        //room6.hasTimer = true;
-        //room6.playerList = [player];
-        //roomsFromServer.push(room6);
-
-        //let room7 = new RoomInfo();
-        //room7.roomID = '7';
-        //room7.playerCount = 7;
-        //room7.withFriends = false;
-        //room7.hasTimer = true;
-        //room7.playerList = [player];
-        //roomsFromServer.push(room7);
-        //end testing//////////////////////////////////////////////////////////////
+        
 
         for (let i: number = 0; i < roomsFromServer.length; i++) {
             let lobbyroom = new LobbyRoom(self, i, roomsFromServer[i]);
@@ -145,7 +90,7 @@ export class JoinScene extends Phaser.Scene {
         newGameButton.on('pointerover', function () { newGameButton.setColor('#42a7f5') });
         newGameButton.on('pointerout', function () { newGameButton.setColor('#2335a8') });
         newGameButton.on('pointerdown', function (event: any) {
-            self.scene.start('LobbyScene');
+            self.scene.start('NewScene', { player: self.player });
         }, self);
 
         //Back Button

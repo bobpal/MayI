@@ -6,6 +6,6 @@ export class RoomInfo {
     playerList: PlayerInfo[];
     withFriends: boolean;
     hasTimer: boolean;
-
+    status: string; //waiting, playing
 
 }

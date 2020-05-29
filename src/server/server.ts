@@ -1,6 +1,7 @@
 import express from 'express';
 import path from 'path';
 import { Socket } from 'socket.io';
+import { RoomInfo } from '../shared/room';
 
 const app = express();
 app.set('port', process.env.PORT || 9001);
@@ -17,8 +18,12 @@ app.get('/', (req: any, res: any) => {
 io.on('connection', function (socket: Socket) {
     console.log('A user connected: ' + socket.id);
 
-    socket.on('roomObj', function (data: any) {
-        console.log(data);
+    socket.on('newRoom', function (room: RoomInfo) {
+        let roomNumber = Math.floor(Math.random() * 9999);
+        let roomID = roomNumber.toString();
+        room.roomID = roomID.padStart(4, '0');
+        socket.join(room.roomID);
+        console.log(room);
     });
 
     socket.once('disconnect', function (socket: Socket) {

@@ -132,10 +132,12 @@ export class NewScene extends Phaser.Scene {
             roomObj.hasTimer = self.hasTimer;
             roomObj.playerCount = +self.playerCount.text;
             roomObj.withFriends = self.withFriends;
-            roomObj.playerList.push();
+            roomObj.status = 'waiting';
+            roomObj.playerList = [];
+            roomObj.playerList.push(self.player);
 
             let socket = io.connect('http://localhost:9001');
-            socket.emit('roomObj', roomObj);
+            socket.emit('newRoom', roomObj);
 
             self.scene.start('LobbyScene');
         }, self);
