@@ -1,6 +1,14 @@
+import { PlayerInfo } from "../../shared/player";
+
 export class RulesScene extends Phaser.Scene {
+    player: PlayerInfo;
+
     constructor() {
         super('RulesScene');
+    }
+
+    init(data: any) {
+        this.player = data.player;
     }
 
     preload() {
@@ -76,7 +84,7 @@ export class RulesScene extends Phaser.Scene {
         let backButton = this.add.text(445, 575, 'Back').setFontSize(30).setFontFamily('Impact').setColor('#2335a8').setStroke('#ffffff', 3).setInteractive({ useHandCursor: true });
         backButton.on('pointerover', function () { backButton.setColor('#42a7f5') });
         backButton.on('pointerout', function () { backButton.setColor('#2335a8') });
-        backButton.on('pointerdown', function (event: any) { this.scene.start('TitleScene'); }, this);
+        backButton.on('pointerdown', function (event: any) { this.scene.start('TitleScene', { player: this.player }); }, this);
     }
 
 

@@ -1,6 +1,14 @@
+import { PlayerInfo } from "../../shared/player";
+
 export class TitleScene extends Phaser.Scene {
+    player: PlayerInfo;
+
     constructor() {
         super('TitleScene');
+    }
+
+    init(data: any) {
+        this.player = data.player;
     }
 
     preload() {
@@ -36,15 +44,15 @@ export class TitleScene extends Phaser.Scene {
 
         startButton.on('pointerover', function () { startButton.setColor('#42a7f5') });
         startButton.on('pointerout', function () { startButton.setColor('#2335a8') });
-        startButton.on('pointerdown', function (event: any) { this.scene.start('PersonalizeScene') }, this);
+        startButton.on('pointerdown', function (event: any) { this.scene.start('PersonalizeScene', { player: this.player }) }, this);
 
         rulesButton.on('pointerover', function () { rulesButton.setColor('#42a7f5') });
         rulesButton.on('pointerout', function () { rulesButton.setColor('#2335a8') });
-        rulesButton.on('pointerdown', function (event: any) { this.scene.start('RulesScene'); }, this);
+        rulesButton.on('pointerdown', function (event: any) { this.scene.start('RulesScene', { player: this.player }); }, this);
 
         creditsButton.on('pointerover', function () { creditsButton.setColor('#42a7f5') });
         creditsButton.on('pointerout', function () { creditsButton.setColor('#2335a8') });
-        creditsButton.on('pointerdown', function (event: any) { this.scene.start('CreditsScene'); }, this);
+        creditsButton.on('pointerdown', function (event: any) { this.scene.start('CreditsScene', { player: this.player }); }, this);
     }
 
     

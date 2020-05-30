@@ -1,5 +1,5 @@
 export class PlayerInfo {
-    socketID: string;
+    socket: SocketIOClient.Socket;
     name: string;
     avatar: string;
     cardBack: string;

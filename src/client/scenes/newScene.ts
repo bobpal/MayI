@@ -1,8 +1,6 @@
 import { GameObjects } from "phaser";
-import io from 'socket.io-client';
 import { RoomInfo } from "../../shared/room";
 import { PlayerInfo } from "../../shared/player";
-
 
 export class NewScene extends Phaser.Scene {
     playerCount: GameObjects.Text;
@@ -134,12 +132,13 @@ export class NewScene extends Phaser.Scene {
             roomObj.withFriends = self.withFriends;
             roomObj.status = 'waiting';
             roomObj.playerList = [];
+            let socket = self.player.socket;
+            self.player.socket = null;
             roomObj.playerList.push(self.player);
 
-            let socket = io.connect('http://localhost:9001');
             socket.emit('newRoom', roomObj);
 
-            self.scene.start('LobbyScene');
+            self.scene.start('LobbyScene', { player: self.player });
         }, self);
 
         //Back Button

@@ -1,6 +1,7 @@
 import { PlayerInfo } from "../../shared/player";
 import { RoomInfo } from "../../shared/room";
 import { GameObjects } from "phaser";
+import io from 'socket.io-client';
 
 export class JoinScene extends Phaser.Scene {
     roomTextBox: any;
@@ -11,19 +12,19 @@ export class JoinScene extends Phaser.Scene {
         super('JoinScene');
     }
 
+    init(data: any) {
+        this.player = data.player;
+    }
+
     preload() {
         this.load.html('roomform', './assets/roomform.html');
         this.load.image('timer', './assets/timer.png');
     }
 
-    init(data: any) {
-        this.player = data.player;
-    }
-
     create() {
         let self = this;
 
-
+        self.player.socket = io.connect('http://localhost:9001');
 
         self.lobby = [];
         //background
@@ -82,7 +83,7 @@ export class JoinScene extends Phaser.Scene {
         joinFriendsButton.on('pointerover', function () { joinFriendsButton.setColor('#42a7f5') });
         joinFriendsButton.on('pointerout', function () { joinFriendsButton.setColor('#2335a8') });
         joinFriendsButton.on('pointerdown', function (event: any) {
-            self.scene.start('LobbyScene');
+            self.scene.start('LobbyScene', { player: self.player });
         }, self);
 
         //New Game Button
@@ -97,7 +98,7 @@ export class JoinScene extends Phaser.Scene {
         let backButton = self.add.text(445, 575, 'Back').setFontSize(30).setFontFamily('Impact').setColor('#2335a8').setStroke('#ffffff', 3).setInteractive({ useHandCursor: true });
         backButton.on('pointerover', function () { backButton.setColor('#42a7f5') });
         backButton.on('pointerout', function () { backButton.setColor('#2335a8') });
-        backButton.on('pointerdown', function (event: any) { self.scene.start('PersonalizeScene'); }, self);
+        backButton.on('pointerdown', function (event: any) { self.scene.start('PersonalizeScene', { player: self.player }); }, self);
     }
 }
 
