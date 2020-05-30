@@ -8,6 +8,7 @@ export class PersonalizeScene extends Phaser.Scene {
     avatarArray: GameObjects.Image[];
     backArray: GameObjects.Image[];
     player: PlayerInfo;
+    socket: SocketIOClient.Socket;
 
     constructor() {
         super('PersonalizeScene');
@@ -15,6 +16,7 @@ export class PersonalizeScene extends Phaser.Scene {
 
     init(data: any) {
         this.player = data.player;
+        this.socket = data.socket;
     }
 
     preload() {
@@ -183,11 +185,8 @@ export class PersonalizeScene extends Phaser.Scene {
 
                     //create new Player
                     let player = new PlayerInfo(nameInput.value, ava.texture.key, cBack.texture.key);
-                    if (self.player != null) {
-                        player.socket = self.player.socket;
-                    }
 
-                    self.scene.start('JoinScene', { player: player });
+                    self.scene.start('JoinScene', { player: player, socket: self.socket });
                 }
                 else {
                     self.nameTooLong = self.add.text(375, 100, 'Name must be 10 characters or less').setFontSize(15).setFontFamily('Arial').setColor('#ff0000');
@@ -204,7 +203,7 @@ export class PersonalizeScene extends Phaser.Scene {
         let backButton = self.add.text(445, 575, 'Back').setFontSize(30).setFontFamily('Impact').setColor('#2335a8').setStroke('#ffffff', 3).setInteractive({ useHandCursor: true });
         backButton.on('pointerover', function () { backButton.setColor('#42a7f5') });
         backButton.on('pointerout', function () { backButton.setColor('#2335a8') });
-        backButton.on('pointerdown', function (event: any) { self.scene.start('TitleScene', { player: self.player }); }, self);
+        backButton.on('pointerdown', function (event: any) { self.scene.start('TitleScene', { player: self.player, socket: self.socket }); }, self);
     }
 
     setVisibility(images: GameObjects.Image[], stepWidth: number) {

@@ -2,6 +2,7 @@ import { PlayerInfo } from "../../shared/player";
 
 export class LobbyScene extends Phaser.Scene {
     player: PlayerInfo;
+    socket: SocketIOClient.Socket;
 
     constructor() {
         super('LobbyScene');
@@ -9,6 +10,7 @@ export class LobbyScene extends Phaser.Scene {
 
     init(data: any) {
         this.player = data.player;
+        this.socket = data.socket;
     }
 
     preload() {

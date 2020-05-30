@@ -1,5 +1,4 @@
 export class PlayerInfo {
-    socket: SocketIOClient.Socket;
     name: string;
     avatar: string;
     cardBack: string;

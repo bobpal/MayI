@@ -6,6 +6,7 @@ import io from 'socket.io-client';
 export class JoinScene extends Phaser.Scene {
     roomTextBox: any;
     player: PlayerInfo;
+    socket: SocketIOClient.Socket;
     lobby: LobbyRoom[];
 
     constructor() {
@@ -14,6 +15,7 @@ export class JoinScene extends Phaser.Scene {
 
     init(data: any) {
         this.player = data.player;
+        this.socket = data.socket;
     }
 
     preload() {
@@ -24,7 +26,7 @@ export class JoinScene extends Phaser.Scene {
     create() {
         let self = this;
 
-        self.player.socket = io.connect('http://localhost:9001');
+        self.socket = io.connect('http://localhost:9001');
 
         self.lobby = [];
         //background
@@ -83,7 +85,7 @@ export class JoinScene extends Phaser.Scene {
         joinFriendsButton.on('pointerover', function () { joinFriendsButton.setColor('#42a7f5') });
         joinFriendsButton.on('pointerout', function () { joinFriendsButton.setColor('#2335a8') });
         joinFriendsButton.on('pointerdown', function (event: any) {
-            self.scene.start('LobbyScene', { player: self.player });
+            self.scene.start('LobbyScene', { player: self.player, socket: self.socket });
         }, self);
 
         //New Game Button
@@ -91,14 +93,14 @@ export class JoinScene extends Phaser.Scene {
         newGameButton.on('pointerover', function () { newGameButton.setColor('#42a7f5') });
         newGameButton.on('pointerout', function () { newGameButton.setColor('#2335a8') });
         newGameButton.on('pointerdown', function (event: any) {
-            self.scene.start('NewScene', { player: self.player });
+            self.scene.start('NewScene', { player: self.player, socket: self.socket });
         }, self);
 
         //Back Button
         let backButton = self.add.text(445, 575, 'Back').setFontSize(30).setFontFamily('Impact').setColor('#2335a8').setStroke('#ffffff', 3).setInteractive({ useHandCursor: true });
         backButton.on('pointerover', function () { backButton.setColor('#42a7f5') });
         backButton.on('pointerout', function () { backButton.setColor('#2335a8') });
-        backButton.on('pointerdown', function (event: any) { self.scene.start('PersonalizeScene', { player: self.player }); }, self);
+        backButton.on('pointerdown', function (event: any) { self.scene.start('PersonalizeScene', { player: self.player, socket: self.socket }); }, self);
     }
 }
 

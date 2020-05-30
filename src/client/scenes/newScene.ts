@@ -9,6 +9,7 @@ export class NewScene extends Phaser.Scene {
     withFriends: boolean;
     hasTimer: boolean;
     player: PlayerInfo;
+    socket: SocketIOClient.Socket;
 
     constructor() {
         super('NewScene');
@@ -16,6 +17,7 @@ export class NewScene extends Phaser.Scene {
 
     init(data: any) {
         this.player = data.player;
+        this.socket = data.socket;
     }
 
     preload() {
@@ -132,11 +134,9 @@ export class NewScene extends Phaser.Scene {
             roomObj.withFriends = self.withFriends;
             roomObj.status = 'waiting';
             roomObj.playerList = [];
-            let socket = self.player.socket;
-            self.player.socket = null;
             roomObj.playerList.push(self.player);
 
-            socket.emit('newRoom', roomObj);
+            self.socket.emit('newRoom', roomObj);
 
             self.scene.start('LobbyScene', { player: self.player });
         }, self);
@@ -145,7 +145,7 @@ export class NewScene extends Phaser.Scene {
         let backButton = self.add.text(445, 575, 'Back').setFontSize(30).setFontFamily('Impact').setColor('#2335a8').setStroke('#ffffff', 3).setInteractive({ useHandCursor: true });
         backButton.on('pointerover', function () { backButton.setColor('#42a7f5') });
         backButton.on('pointerout', function () { backButton.setColor('#2335a8') });
-        backButton.on('pointerdown', function (event: any) { self.scene.start('JoinScene', { player: self.player }); }, self);
+        backButton.on('pointerdown', function (event: any) { self.scene.start('JoinScene', { player: self.player, socket: self.socket }); }, self);
     }
 
 
