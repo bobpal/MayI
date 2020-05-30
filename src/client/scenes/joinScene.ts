@@ -25,10 +25,20 @@ export class JoinScene extends Phaser.Scene {
 
     create() {
         let self = this;
+        self.lobby = [];
 
         self.socket = io.connect('http://localhost:9001');
+        self.socket.on('receiveRooms', function (data: any) {
+            let roomsFromServer: RoomInfo[] = [];
+            roomsFromServer = data.rooms;
 
-        self.lobby = [];
+            for (let i: number = 0; i < roomsFromServer.length; i++) {
+                let lobbyroom = new LobbyRoom(self, i, roomsFromServer[i]);
+                self.lobby.push(lobbyroom);
+            }
+        });
+        self.socket.emit('getRooms');
+
         //background
         self.add.image(480, 320, 'tableTop');
         //OR
@@ -41,15 +51,6 @@ export class JoinScene extends Phaser.Scene {
         self.add.text(125, 50, 'Find a game to join').setFontSize(20).setFontFamily('Arial').setColor('#ffffff').setStroke('#2335a8', 3);
         //Existing Games Container
         self.add.rectangle(215, 290, 350, 350, 0xffffff).setStrokeStyle(4, 0x000000);
-
-        
-        let roomsFromServer: RoomInfo[] = [];
-        
-
-        for (let i: number = 0; i < roomsFromServer.length; i++) {
-            let lobbyroom = new LobbyRoom(self, i, roomsFromServer[i]);
-            self.lobby.push(lobbyroom);
-        }
 
         //up arrow
         let upArrow = self.add.rectangle(215, 101, 350, 25, 0xffffff).setStrokeStyle(4, 0x000000).setInteractive({ useHandCursor: true });
@@ -103,6 +104,20 @@ export class JoinScene extends Phaser.Scene {
         backButton.on('pointerdown', function (event: any) { self.scene.start('PersonalizeScene', { player: self.player, socket: self.socket }); }, self);
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 export class LobbyRoom {
     visibleNumber: number;

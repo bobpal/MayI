@@ -19,6 +19,11 @@ app.get('/', (req: any, res: any) => {
 io.on('connection', function (socket: Socket) {
     console.log('A user connected: ' + socket.id);
 
+    socket.on('getRooms', function () {
+        let anonWaitingRooms = roomList.filter(r => r.status === 'waiting' && r.withFriends === false);
+        socket.emit('receiveRooms', { rooms: anonWaitingRooms });
+    });
+
     socket.on('newRoom', function (room: RoomInfo) {
         //generate random roomID
         let roomNumber = Math.floor(Math.random() * 9999);
