@@ -48,6 +48,7 @@ io.on('connection', function (socket: Socket) {
             socket.join(roomID);
             roomList[roomIndex].playerList.push(player);
             socket.emit('validRoom', { valid: true });
+            console.log(roomList[roomIndex]);
         }
     });
 
@@ -57,5 +58,5 @@ io.on('connection', function (socket: Socket) {
 });
 
 http.listen(9001, function () {
-    
+    console.log('READY!');
 });

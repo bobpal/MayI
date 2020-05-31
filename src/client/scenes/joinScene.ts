@@ -175,7 +175,7 @@ export class LobbyRoom {
             this.lightOutline.setVisible(false);
         }, this);
         this.hitArea.on('pointerdown', function (event: any) {
-           
+            scene.socket.emit('joinRoom', room.roomID, scene.player);
         }, this);
     }
 
