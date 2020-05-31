@@ -177,14 +177,14 @@ export class PersonalizeScene extends Phaser.Scene {
                 self.noName.setVisible(false);
             }
 
-            let nameInput = self.nameTextBox.getChildByName('nameField');
-            if (nameInput.value.length !== 0) {
-                if (nameInput.value.length < 11) {
+            let nameInput = self.nameTextBox.getChildByName('nameField').value;
+            if (nameInput.length !== 0) {
+                if (nameInput.length < 11) {
                     let ava = self.avatarArray.find(a => a.x === 0);
                     let cBack = self.backArray.find(a => a.x === 0);
 
                     //create new Player
-                    let player = new PlayerInfo(nameInput.value, ava.texture.key, cBack.texture.key);
+                    let player = new PlayerInfo(nameInput, ava.texture.key, cBack.texture.key);
 
                     self.scene.start('JoinScene', { player: player, socket: self.socket });
                 }

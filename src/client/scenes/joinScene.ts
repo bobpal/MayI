@@ -37,6 +37,16 @@ export class JoinScene extends Phaser.Scene {
                 self.lobby.push(lobbyroom);
             }
         });
+
+        self.socket.on('validRoom', function (data: any) {
+            if (data.valid === true) {
+                self.scene.start('LobbyScene', { player: self.player, socket: self.socket });
+            }
+            else {
+                self.add.text(683, 330, 'Room ID was invalid').setFontSize(15).setFontFamily('Arial').setColor('#ff0000');
+            }
+        });
+
         self.socket.emit('getRooms');
 
         //background
@@ -86,7 +96,15 @@ export class JoinScene extends Phaser.Scene {
         joinFriendsButton.on('pointerover', function () { joinFriendsButton.setColor('#42a7f5') });
         joinFriendsButton.on('pointerout', function () { joinFriendsButton.setColor('#2335a8') });
         joinFriendsButton.on('pointerdown', function (event: any) {
-            self.scene.start('LobbyScene', { player: self.player, socket: self.socket });
+            let roomID: string = self.roomTextBox.getChildByName('roomField').value;
+
+            if (roomID != null && roomID.match(/\d{4}/).length > 0) {
+                self.socket.emit('joinRoom', { roomID: roomID, player: self.player });
+            }
+            else {
+                self.add.text(683, 330, 'Room IDE was invalid').setFontSize(15).setFontFamily('Arial').setColor('#ff0000');
+            }
+
         }, self);
 
         //New Game Button
@@ -136,7 +154,7 @@ export class LobbyRoom {
         this.lightOutline = lightG.strokeRoundedRect(50, 125 + (i * this.stepSize), 330, 50, 10).setVisible(false);
         this.darkOutline = darkG.strokeRoundedRect(50, 125 + (i * this.stepSize), 330, 50, 10);
         this.hitArea = scene.add.rectangle(215, 150 + (i * this.stepSize), 330, 50).setInteractive({ useHandCursor: true });
-        this.playerText = scene.add.text(75, 135 + (i * this.stepSize), 'Players: ' + room.playerList.length + '/' + room.playerCount);
+        this.playerText = scene.add.text(75, 135 + (i * this.stepSize), 'Players: ' + room.playerList.length + '/' + room.playerMax);
         this.playerText.setFontSize(30).setFontFamily('Arial').setColor('#000000');
         this.timer = scene.add.image(350, 150 + (i * this.stepSize), 'timer').setScale(.2, .2);
 

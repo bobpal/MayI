@@ -2,6 +2,7 @@ import express from 'express';
 import path from 'path';
 import { Socket } from 'socket.io';
 import { RoomInfo } from '../shared/room';
+import { PlayerInfo } from '../shared/player';
 
 let roomList: RoomInfo[] = [];
 const app = express();
@@ -36,6 +37,18 @@ io.on('connection', function (socket: Socket) {
 
         //add room to list
         roomList.push(room);
+    });
+
+    socket.on('joinRoom', function (roomID: string, player: PlayerInfo) {
+        let roomIndex = roomList.findIndex(r => r.roomID == roomID && r.playerList.length < r.playerMax);
+        if (roomIndex !== -1) {
+            socket.join(roomID);
+            roomList[roomIndex].playerList.push(player);
+            socket.emit('validRoom', { valid: true });
+        }
+        else {
+            socket.emit('validRoom', { valid: false });
+        }
     });
 
     socket.once('disconnect', function () {

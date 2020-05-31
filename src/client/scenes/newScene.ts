@@ -3,7 +3,7 @@ import { RoomInfo } from "../../shared/room";
 import { PlayerInfo } from "../../shared/player";
 
 export class NewScene extends Phaser.Scene {
-    playerCount: GameObjects.Text;
+    playerMax: GameObjects.Text;
     friendCircle: GameObjects.Arc;
     timerCircle: GameObjects.Arc;
     withFriends: boolean;
@@ -40,25 +40,25 @@ export class NewScene extends Phaser.Scene {
         self.add.rectangle(175, 270, 50, 40, 0xffffff).setStrokeStyle(2, 0x000000);
         self.add.rectangle(175, 310, 50, 40, 0xffffff).setStrokeStyle(2, 0x000000);
 
-        self.playerCount = self.add.text(90, 260, '4').setFontSize(50).setFontFamily('Impact').setColor('#000000')
+        self.playerMax = self.add.text(90, 260, '4').setFontSize(50).setFontFamily('Impact').setColor('#000000')
         let upPlayer = self.add.text(146, 285, '>').setFontSize(50).setFontFamily('Impact').setColor('#000000').setAngle(-90).setInteractive({ useHandCursor: true });
         let downPlayer = self.add.text(203, 295, '>').setFontSize(50).setFontFamily('Impact').setColor('#000000').setAngle(90).setInteractive({ useHandCursor: true });
 
         upPlayer.on('pointerdown', function (event: any) {
-            if (self.playerCount.text === '2') {
-                self.playerCount.setText('3');
+            if (self.playerMax.text === '2') {
+                self.playerMax.setText('3');
             }
-            else if (self.playerCount.text === '3') {
-                self.playerCount.setText('4');
+            else if (self.playerMax.text === '3') {
+                self.playerMax.setText('4');
             }
         }, self);
 
         downPlayer.on('pointerdown', function (event: any) {
-            if (self.playerCount.text === '4') {
-                self.playerCount.setText('3');
+            if (self.playerMax.text === '4') {
+                self.playerMax.setText('3');
             }
-            else if (self.playerCount.text === '3') {
-                self.playerCount.setText('2');
+            else if (self.playerMax.text === '3') {
+                self.playerMax.setText('2');
             }
         }, self);
 
@@ -130,7 +130,7 @@ export class NewScene extends Phaser.Scene {
         startButton.on('pointerdown', function (event: any) {
             let roomObj = new RoomInfo();
             roomObj.hasTimer = self.hasTimer;
-            roomObj.playerCount = +self.playerCount.text;
+            roomObj.playerMax = +self.playerMax.text;
             roomObj.withFriends = self.withFriends;
             roomObj.status = 'waiting';
             roomObj.playerList = [];
