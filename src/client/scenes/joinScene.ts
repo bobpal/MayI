@@ -99,10 +99,10 @@ export class JoinScene extends Phaser.Scene {
             let roomID: string = self.roomTextBox.getChildByName('roomField').value;
 
             if (roomID != null && roomID.match(/\d{4}/).length > 0) {
-                self.socket.emit('joinRoom', { roomID: roomID, player: self.player });
+                self.socket.emit('joinRoom', roomID, self.player);
             }
             else {
-                self.add.text(683, 330, 'Room IDE was invalid').setFontSize(15).setFontFamily('Arial').setColor('#ff0000');
+                self.add.text(683, 330, 'Room ID was invalid').setFontSize(15).setFontFamily('Arial').setColor('#ff0000');
             }
 
         }, self);

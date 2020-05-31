@@ -40,14 +40,14 @@ io.on('connection', function (socket: Socket) {
     });
 
     socket.on('joinRoom', function (roomID: string, player: PlayerInfo) {
-        let roomIndex = roomList.findIndex(r => r.roomID == roomID && r.playerList.length < r.playerMax);
-        if (roomIndex !== -1) {
+        let roomIndex = roomList.findIndex(r => r.roomID === roomID && r.playerList.length < r.playerMax);
+        if (roomIndex === -1) {
+            socket.emit('validRoom', { valid: false });
+        }
+        else {
             socket.join(roomID);
             roomList[roomIndex].playerList.push(player);
             socket.emit('validRoom', { valid: true });
-        }
-        else {
-            socket.emit('validRoom', { valid: false });
         }
     });
 
@@ -57,5 +57,5 @@ io.on('connection', function (socket: Socket) {
 });
 
 http.listen(9001, function () {
-    console.log('listening on *:9001');
+    
 });
