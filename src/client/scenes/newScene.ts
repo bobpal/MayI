@@ -138,7 +138,7 @@ export class NewScene extends Phaser.Scene {
 
             self.socket.emit('newRoom', roomObj);
 
-            self.scene.start('LobbyScene', { player: self.player });
+            self.scene.start('LobbyScene', { player: self.player, socket: self.socket });
         }, self);
 
         //Back Button

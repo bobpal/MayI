@@ -6,7 +6,8 @@ import { PlayerInfo } from '../shared/player';
 
 let roomList: RoomInfo[] = [];
 const app = express();
-app.set('port', process.env.PORT || 9001);
+const portNum = 9001;
+app.set('port', process.env.PORT || portNum);
 
 let http = require('http').Server(app);
 let io = require('socket.io')(http);
@@ -37,6 +38,7 @@ io.on('connection', function (socket: Socket) {
 
         //add room to list
         roomList.push(room);
+        socket.emit('lobby', { room: room });
     });
 
     socket.on('joinRoom', function (roomID: string, player: PlayerInfo) {
@@ -49,6 +51,7 @@ io.on('connection', function (socket: Socket) {
             roomList[roomIndex].playerList.push(player);
             socket.emit('validRoom', { valid: true });
             console.log(roomList[roomIndex]);
+            socket.emit('lobby', { room: roomList[roomIndex] });
         }
     });
 
@@ -57,6 +60,6 @@ io.on('connection', function (socket: Socket) {
     });
 });
 
-http.listen(9001, function () {
-    console.log('READY!');
+http.listen(portNum, function () {
+    console.log('listening on port ' + portNum);
 });
