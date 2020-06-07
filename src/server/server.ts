@@ -23,7 +23,7 @@ io.on('connection', function (socket: Socket) {
 
     socket.on('getRooms', function () {
         let anonWaitingRooms = roomList.filter(r => r.status === 'waiting' && r.withFriends === false);
-        socket.emit('receiveRooms', { rooms: anonWaitingRooms });
+        socket.emit('updateRooms', { rooms: anonWaitingRooms });
     });
 
     socket.on('newRoom', function (room: RoomInfo) {
@@ -39,6 +39,12 @@ io.on('connection', function (socket: Socket) {
         //add room to list
         roomList.push(room);
         socket.emit('getRoomID', { roomID: room.roomID });
+
+        //update join scene
+        if (room.withFriends === false) {
+            let anonWaitingRooms = roomList.filter(r => r.status === 'waiting' && r.withFriends === false);
+            socket.broadcast.emit('updateRooms', { rooms: anonWaitingRooms });
+        }
     });
 
     socket.on('joinRoom', function (roomID: string, player: PlayerInfo) {
