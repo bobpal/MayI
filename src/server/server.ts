@@ -38,7 +38,7 @@ io.on('connection', function (socket: Socket) {
 
         //add room to list
         roomList.push(room);
-        socket.emit('lobby', { room: room });
+        socket.emit('getRoomID', { roomID: room.roomID });
     });
 
     socket.on('joinRoom', function (roomID: string, player: PlayerInfo) {
@@ -51,8 +51,12 @@ io.on('connection', function (socket: Socket) {
             roomList[roomIndex].playerList.push(player);
             socket.emit('validRoom', { valid: true });
             console.log(roomList[roomIndex]);
-            socket.emit('lobby', { room: roomList[roomIndex] });
         }
+    });
+
+    socket.on('playerJoinedLobby', function (roomID: string) {
+        let room = roomList.find(r => r.roomID === roomID);
+        io.in(roomID).emit('lobby', { room: room });
     });
 
     socket.once('disconnect', function () {

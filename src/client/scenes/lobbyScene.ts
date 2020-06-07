@@ -3,6 +3,7 @@ import { PlayerInfo } from "../../shared/player";
 export class LobbyScene extends Phaser.Scene {
     player: PlayerInfo;
     socket: SocketIOClient.Socket;
+    roomID: string;
 
     constructor() {
         super('LobbyScene');
@@ -11,6 +12,7 @@ export class LobbyScene extends Phaser.Scene {
     init(data: any) {
         this.player = data.player;
         this.socket = data.socket;
+        this.roomID = data.roomID;
     }
 
     preload() {
@@ -35,10 +37,9 @@ export class LobbyScene extends Phaser.Scene {
                 self.add.text(190, 185 + (i * 50), data.room.playerList[i].name).setFontSize(30).setFontFamily('Arial').setColor('#000000');
             }
 
-
-
-
         });
+
+        self.socket.emit('playerJoinedLobby', self.roomID);
 
         //Friends text
         self.add.text(200, 50, 'Waiting for other players').setFontSize(50).setFontFamily('Arial').setColor('#ffffff').setStroke('#2335a8', 3);

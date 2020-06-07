@@ -40,7 +40,7 @@ export class JoinScene extends Phaser.Scene {
 
         self.socket.on('validRoom', function (data: any) {
             if (data.valid === true) {
-                self.scene.start('LobbyScene', { player: self.player, socket: self.socket });
+                self.scene.start('LobbyScene', { player: self.player, socket: self.socket, roomID: self.roomTextBox.getChildByName('roomField').value });
             }
             else {
                 self.add.text(683, 330, 'Room ID was invalid').setFontSize(15).setFontFamily('Arial').setColor('#ff0000');
