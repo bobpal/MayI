@@ -10,6 +10,7 @@ export class JoinScene extends Phaser.Scene {
     socket: SocketIOClient.Socket;
     lobby: LobbyRoom[];
     noRoomsMessage: GameObjects.Text;
+    roomID: string;
 
     constructor() {
         super('JoinScene');
@@ -29,7 +30,12 @@ export class JoinScene extends Phaser.Scene {
         let self = this;
         self.lobby = [];
 
-        self.socket = io.connect('http://localhost:9001');
+        if (self.socket == null) {
+            self.socket = io.connect('http://localhost:9001');
+            self.socket.on('sendSocketID', function (data: any) {
+                self.player.socketID = data.socketID;
+            });
+        }
 
         self.socket.on('updateRooms', function (data: any) {
             let roomsFromServer: RoomInfo[] = [];
@@ -51,7 +57,7 @@ export class JoinScene extends Phaser.Scene {
 
         self.socket.on('validRoom', function (data: any) {
             if (data.valid === true) {
-                self.scene.start('LobbyScene', { player: self.player, socket: self.socket, roomID: self.roomTextBox.getChildByName('roomField').value });
+                self.scene.start('LobbyScene', { player: self.player, socket: self.socket, roomID: self.roomID });
             }
             else {
                 self.add.text(683, 330, 'Room ID was invalid').setFontSize(15).setFontFamily('Arial').setColor('#ff0000');
@@ -109,10 +115,10 @@ export class JoinScene extends Phaser.Scene {
         joinFriendsButton.on('pointerover', function () { joinFriendsButton.setColor('#42a7f5') });
         joinFriendsButton.on('pointerout', function () { joinFriendsButton.setColor('#2335a8') });
         joinFriendsButton.on('pointerdown', function (event: any) {
-            let roomID: string = self.roomTextBox.getChildByName('roomField').value;
+            self.roomID = self.roomTextBox.getChildByName('roomField').value;
 
-            if (roomID != null && roomID.match(/\d{4}/).length > 0) {
-                self.socket.emit('joinRoom', roomID, self.player);
+            if (self.roomID != null && self.roomID.match(/\d{4}/).length > 0) {
+                self.socket.emit('joinRoom', self.roomID, self.player);
             }
             else {
                 self.add.text(683, 330, 'Room ID was invalid').setFontSize(15).setFontFamily('Arial').setColor('#ff0000');

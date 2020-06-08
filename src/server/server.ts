@@ -20,6 +20,7 @@ app.get('/', (req: any, res: any) => {
 
 io.on('connection', function (socket: Socket) {
     console.log('A user connected: ' + socket.id);
+    socket.emit('sendSocketID', { socketID: socket.id });
 
     socket.on('getRooms', function () {
         let anonWaitingRooms = roomList.filter(r => r.status === 'waiting' && r.withFriends === false);
@@ -43,7 +44,7 @@ io.on('connection', function (socket: Socket) {
         //update join scene
         if (room.withFriends === false) {
             let anonWaitingRooms = roomList.filter(r => r.status === 'waiting' && r.withFriends === false);
-            socket.broadcast.emit('updateRooms', { rooms: anonWaitingRooms });
+            io.emit('updateRooms', { rooms: anonWaitingRooms });
         }
     });
 
@@ -63,6 +64,24 @@ io.on('connection', function (socket: Socket) {
     socket.on('playerJoinedLobby', function (roomID: string) {
         let room = roomList.find(r => r.roomID === roomID);
         io.in(roomID).emit('lobby', { room: room });
+    });
+
+    socket.on('leaveLobby', function (roomID: string) {
+        let roomIndex = roomList.findIndex(r => r.roomID === roomID);
+
+        //last one to leave
+        if (roomList[roomIndex].playerList.length === 1) {
+            roomList.splice(roomIndex, 1);
+
+            let anonWaitingRooms = roomList.filter(r => r.status === 'waiting' && r.withFriends === false);
+            io.emit('updateRooms', { rooms: anonWaitingRooms });
+        }
+        else {
+            let playerIndex = roomList[roomIndex].playerList.findIndex(p => p.socketID === socket.id);
+            roomList[roomIndex].playerList.splice(playerIndex, 1);
+            
+            io.in(roomID).emit('lobby', { room: roomList[roomIndex] });
+        }
     });
 
     socket.once('disconnect', function () {

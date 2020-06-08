@@ -1,4 +1,5 @@
 export class PlayerInfo {
+    socketID: string;
     name: string;
     avatar: string;
     cardBack: string;
